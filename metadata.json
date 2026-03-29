@@ -1,5 +1,0 @@
-{
-  "name": "The Academic Atelier",
-  "description": "An intelligent academic material manager that organizes assignments, notes, and links using AI classification.",
-  "requestFramePermissions": ["camera"]
-}
