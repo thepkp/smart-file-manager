@@ -1,0 +1,49 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Stores user preferences and academic metadata.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique Firebase Auth ID" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string", "format": "url" },
+        "currentSemester": { "type": "string", "description": "e.g., 'Semester 4'" },
+        "subjects": { "type": "array", "items": { "type": "string" } },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Material": {
+      "title": "Academic Material",
+      "description": "A study resource, assignment, or note.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Owner ID" },
+        "title": { "type": "string" },
+        "type": { "type": "string", "enum": ["assignment", "tutorial", "link", "pyq", "note"] },
+        "content": { "type": "string", "description": "URL for files/links, or text for notes" },
+        "subject": { "type": "string" },
+        "semester": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "completed", "none"], "description": "Status for assignments" },
+        "priority": { "type": "string", "enum": ["high", "medium", "low", "none"], "description": "Priority level for assignments" },
+        "aiSummary": { "type": "string", "description": "AI generated summary or classification" },
+        "isPublic": { "type": "boolean", "description": "Whether the material is shareable" },
+        "dueDate": { "type": "string", "format": "date-time", "description": "Optional due date for assignments" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "title", "type", "createdAt", "content", "subject", "semester", "status", "priority"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents"
+    },
+    "/materials/{materialId}": {
+      "schema": "Material",
+      "description": "Collection of all academic materials"
+    }
+  }
+}
